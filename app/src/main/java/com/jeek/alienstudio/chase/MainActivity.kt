@@ -6,17 +6,42 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+//import com.jeek.alienstudio.chase.OkHttpDemo
+
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    //val demo = OkHttpDemo()
+    var mHelloText: TextView? = null
+
+    val items = listOf(
+            "给初学者的RxJava2.0教程（七）: Flowable",
+            "Android之View的诞生之谜",
+            "Android之自定义View的死亡三部曲之Measure",
+            "Using ThreadPoolExecutor in Android ",
+            "Kotlin 泛型定义与 Java 类似，但有着更多特性支持。",
+            "Android异步的姿势，你真的用对了吗？",
+            "Android 高质量录音库。",
+            "Android 边缘侧滑效果，支持多种场景下的侧滑退出。"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        val listview = findViewById(R.id.mRecDemo) as RecyclerView
+        listview.layoutManager = LinearLayoutManager(this)
+        listview.adapter = MainAdapter(items)
+
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -29,6 +54,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        //val response = demo.run("https://raw.github.com/square/okhttp/master/README.md")
+        //mHelloText!!.setText(response)
     }
 
     override fun onBackPressed() {
